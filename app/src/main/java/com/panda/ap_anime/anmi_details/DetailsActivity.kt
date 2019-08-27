@@ -15,10 +15,12 @@ import qenawi.panda.a_predator.network_Handeler.A_Predator_NWM
 import qenawi.panda.a_predator.network_Handeler.A_Predator_NetWorkManger
 import qenawi.panda.a_predator.network_Handeler.A_Predator_Throwable
 import qenawi.panda.a_predator.network_Handeler.CService_DBase
-
 import java.util.ArrayList
 import java.util.HashMap
-
+import android.content.Intent
+import android.net.Uri
+import android.view.KeyEvent
+import okhttp3.Dispatcher
 
 class DetailsActivity : YouTubeBaseActivity() {
     lateinit var cAnmiation: CAnmiation
@@ -113,8 +115,15 @@ class DetailsActivity : YouTubeBaseActivity() {
         })
         genreAdapter = GenreAdapter()
 
+        tralersAdapter = TralersAdapter(object : TralersAdapter.OnSrelection {
+            override fun selection(str: String) {
 
-        tralersAdapter = TralersAdapter()
+                val videoId = str
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$videoId"))
+                intent.putExtra("VIDEO_ID", videoId)
+                startActivity(intent)
+            }
+        })
 
         val nn: ArrayList<StreamObject> = ArrayList()
         nn.add(StreamObject("CimaClup", "720P", "sTeam0"))
@@ -128,7 +137,7 @@ class DetailsActivity : YouTubeBaseActivity() {
         stream_links.adapter = streamAdapter
 
 
-        recycler_categ.layoutManager = LinearLayoutManager(this@DetailsActivity,LinearLayoutManager.HORIZONTAL,false)
+        recycler_categ.layoutManager = LinearLayoutManager(this@DetailsActivity, LinearLayoutManager.HORIZONTAL, false)
         recycler_categ.adapter = genreAdapter
 
         tralers_recycler.layoutManager =

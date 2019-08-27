@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -44,8 +45,7 @@ class DescoverFragment : Fragment() {
         super.onCreate(savedInstanceState)
         init()
         // base Action
-    }
-
+                                                        }
     private fun init() {
         if (this@DescoverFragment.context != null)
             a_predator_netWorkManger =
@@ -152,10 +152,14 @@ class DescoverFragment : Fragment() {
             Url,
             Body,
             object : A_Predator_NWM.RequistResuiltCallBack {
-                override fun <T : CService_DBase> Sucess(Resposne: T) {
+                override fun <T : CService_DBase> Sucess(Resposne: T)
+                {
                     val data = Resposne as DescoverResponse
-                    if (!data.results!!.isEmpty()) {
+                    if (!data.results!!.isEmpty())
+                    {
+                        Log.v("Descover_Fragment","Before ${Cache.size}")
                         Cache.addAll(data.results!!)
+                        Log.v("Descover_Fragment","After ${Cache.size}")
                         adapter?.submitList(Cache)
                         page++
                     } else {

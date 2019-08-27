@@ -13,16 +13,15 @@ import io.reactivex.disposables.CompositeDisposable
 
 class CAnmiation(private val context: Context, private val Duration: Int) : LifecycleObserver {
     private val disposable: CompositeDisposable
-
-    init {
+     init
+     {
         disposable = CompositeDisposable()
         if (context is LifecycleOwner) {
             (context as LifecycleOwner).lifecycle.addObserver(this)
 
             Log.v("Life Cycle Yea", "ATTACHED")
         }
-    }
-
+        }
     interface CaCallBack {
         fun OnAnmiationFinish()
     }

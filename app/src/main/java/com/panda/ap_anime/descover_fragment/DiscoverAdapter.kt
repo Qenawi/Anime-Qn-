@@ -46,23 +46,21 @@ class DiscoverAdapter (val d:OnSrelection) : ListAdapter<Result, MyViewHolder>(R
         viewHolder.itemView.name.setOnClickListener{
             d.selection(getItem(viewHolder.adapterPosition).id)
         }
-        Timber.tag("new Instance").v("CC")
         return viewHolder
     }
-
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val movie = getItem(position)
         OnBind(movie, holder)
     }
-
-
     private fun OnBind(data: Result, viewHolder: MyViewHolder) {
         viewHolder.itemView.name.text = data.title
-        val Ovtext = data.overview?.let { data.overview!!.substring(35) }
+
+        val Ovtext = data.overview?.let {not_null_overView->
+            not_null_overView.substring(0,Math.min(45,not_null_overView.length))
+        }
         viewHolder.itemView.descreption.text = Ovtext
         viewHolder.itemView.data.text = data.releaseDate
         viewHolder.itemView.seent_text.text = data.voteCount.toString()
-
         Glide.with(c).load(Constants.Movies.getImageBaseUrl("w300") + data.backdropPath).into(viewHolder.itemView.back_drp)
 
     }
